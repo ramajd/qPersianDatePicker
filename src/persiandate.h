@@ -7,11 +7,6 @@
 class PersianDate
 {
 public:
-    enum PersianDateFormat{
-        FORMAT_FULL,
-        FORMAT_SMALL,
-        FORMAT_NUMBER
-    };
 
     int Year;
     int Month;
@@ -19,16 +14,16 @@ public:
 
     PersianDate();
     PersianDate(QDate gDate);
-    PersianDate(int y, int m, int d);
+    PersianDate(int pYear, int pMonth, int pDay);
 
-    QDate ToGerigorian();
-    void SetDate(QDate gerigorianDate);
+    void SetDate(QDate gDate);
+    void SetDate(PersianDate pDate);
     void SetDate(int pYear, int pMonth, int pDay);
 
-    QString ToString();
+    //QString ToString();
 
     static PersianDate GerigorianToPersian(QDate gDate);
-    static QDate PersianToGerigorian(PersianDate pDate);
+    //static QDate PersianToGerigorian(PersianDate pDate);
 
 private:
     static bool GerigorianIsLeep(int gYear);

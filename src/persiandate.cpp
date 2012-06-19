@@ -2,7 +2,35 @@
 
 PersianDate::PersianDate()
 {
+    this->SetDate(QDate::currentDate());
 }
+PersianDate::PersianDate(QDate gDate)
+{
+    this->SetDate(gDate);
+}
+PersianDate::PersianDate(int pYear, int pMonth, int pDay)
+{
+    this->SetDate(pYear, pMonth, pDay);
+}
+
+void PersianDate::SetDate(QDate gDate)
+{
+    PersianDate pd = PersianDate::GerigorianToPersian(gDate);
+    this->SetDate(pd);
+}
+void PersianDate::SetDate(PersianDate pDate)
+{
+    this->Year = pDate.Year;
+    this->Month = pDate.Month;
+    this->Day = pDate.Day;
+}
+void PersianDate::SetDate(int pYear, int pMonth, int pDay)
+{
+    this->Year = pYear;
+    this->Month = pMonth;
+    this->Day = pDay;
+}
+
 
 bool PersianDate::GerigorianIsLeep(int gYear)
 {
