@@ -6,6 +6,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    pdpicker = new qPersianDatePicker(ui->wgtDatePicker);
+    pdpicker->show();
+
 }
 
 MainWindow::~MainWindow()
