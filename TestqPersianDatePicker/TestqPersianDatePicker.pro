@@ -12,9 +12,11 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    ../src/qpersiandatepicker.cpp
+    ../src/qpersiandatepicker.cpp \
+    ../src/persiandate.cpp
 
 HEADERS  += mainwindow.h \
-    ../src/qpersiandatepicker.h
+    ../src/qpersiandatepicker.h \
+    ../src/persiandate.h
 
 FORMS    += mainwindow.ui

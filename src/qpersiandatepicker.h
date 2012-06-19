@@ -2,30 +2,35 @@
 #define QPERSIANDATEPICKER_H
 
 #include <QWidget>
+#include <QGridLayout>
+#include <QLabel>
+#include <QDateTime>
 
-class PersianDate {
+#include "persiandate.h"
 
-public:
-    int Year;
-    int Month;
-    int Day;
-
-    PersianDate(int y, int m, int d) {
-        this->Year = y;
-        this->Month = m;
-        this->Day = d;
-    }
-};
+//===========================================================
 
 class qPersianDatePicker : public QWidget
 {
     Q_OBJECT
 public:
     explicit qPersianDatePicker(QWidget *parent = 0);
+    ~qPersianDatePicker();
 
+    void SetSelectedDate(PersianDate pDate);
+    void SetSelectedDate(QDate gDate);
+    void SetSelectedDate(int pYear, int pMonth, int pDay);
 signals:
 
 public slots:
+
+private:
+    QGridLayout *calendarLayout;
+    PersianDate _selectedDate;
+
+    void InitCalendarLayout();
+
+
 
 };
 
