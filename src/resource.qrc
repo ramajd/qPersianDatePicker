@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/fonts">
+        <file>BHoma.ttf</file>
+        <file>BTitrBd.ttf</file>
+    </qresource>
+</RCC>
