@@ -1,4 +1,5 @@
 #include "qpersiandatepicker.h"
+#include <QDebug>
 
 qPersianDatePicker::qPersianDatePicker(QWidget *parent) :
     QWidget(parent)
@@ -24,6 +25,7 @@ void qPersianDatePicker::InitWidget()
 
     //=== Loading Calendar Header.
     for (int i = 0; i < _calendarWeekNameList->length(); ++i) {
+
         lbl = new QLabel(_calendarWeekNameList->at(6-i));
         lbl->setAlignment(Qt::AlignCenter);
         lbl->setStyleSheet(_calendarWeekNameStyle);
@@ -104,37 +106,25 @@ bool qPersianDatePicker::SetCalendarHolidayStyle(QString style)
 
 QVector<QStringList> qPersianDatePicker::LoadCalendar(QDate selectedDate)
 {
-
-    //        QVector<QStringList> retVal;
-
-    //        int cntr = 1;
-
-    //        for (int i = 0; i < 7; ++i) {
-    //            QStringList lst;
-    //            for (int j = 0; j < 7; ++j) {
-    //                lst.append(QString::number(cntr++));
-    //            }
-    //            retVal.append(lst);
-    //        }
-
-    //        return retVal;
-
+    PersianDate pDate = PersianDateUtil::GerigorianToPersian(selectedDate);
+    return LoadCalendar(pDate);
+}
+QVector<QStringList> qPersianDatePicker::LoadCalendar(PersianDate selectedPersianDate)
+{
+    int firstDayInWeek = (selectedPersianDate.DayOfWeek + selectedPersianDate.Day) % 7;
 
     QVector<QStringList> retVal;
 
-    QDate firstDay(selectedDate.year(), selectedDate.month(), 1);
-
-    int fdow = firstDay.dayOfWeek();
-
     int cntr = 1;
+
 
     for (int i = 0; i < 7; ++i) {
         if (cntr > 30) break;
         QStringList lst;
         for (int j = 0; j < 7; ++j) {
-            if (cntr > 30)
+            if (cntr > selectedPersianDate.MonthTotalDays())
                 lst.append("");
-            else if (i == 0 && j < fdow) {
+            else if (i == 0 && j < firstDayInWeek - 1) {
                 lst.append("");
             } else {
                 lst.append(QString::number(cntr++));
@@ -147,6 +137,5 @@ QVector<QStringList> qPersianDatePicker::LoadCalendar(QDate selectedDate)
     return retVal;
 
 }
-
 
 

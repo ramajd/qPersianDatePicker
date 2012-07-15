@@ -4,9 +4,10 @@
 #include <QWidget>
 #include <QGridLayout>
 #include <QLabel>
+#include <QPushButton>
 #include <QDate>
 #include <QVector>
-
+#include "persiandateutil.h"
 
 
 class qPersianDatePicker : public QWidget
@@ -19,7 +20,6 @@ public:
     bool SetCalendarWeekNameStyle(QString style = "");
     bool SetCalendarDayStyle(QString style = "");
     bool SetCalendarHolidayStyle(QString style = "");
-
 
 signals:
 
@@ -36,6 +36,7 @@ private:
 
     void InitWidget();
     QVector<QStringList> LoadCalendar(QDate selectedDate);
+    QVector<QStringList> LoadCalendar(PersianDate selectedPersianDate);
 };
 
 #endif // QPERSIANDATEPICKER_H
