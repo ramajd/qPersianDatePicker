@@ -1,18 +1,31 @@
 #ifndef PERSIANDATEUTIL_H
 #define PERSIANDATEUTIL_H
 
+#include <QDateTime>
 
-typedef struct _ShamsiDate
+class PersianDate
 {
+public:
     int Year;
     int Month;
     int Day;
-}ShamsiDate;
+    int DayOfWeek;
+
+    PersianDate() { Year = Month = Day = DayOfWeek = -1; }
+    PersianDate(QDate gDate);
+    int MonthTotalDays();
+    bool IsValidDate();
+
+
+};
 
 class PersianDateUtil
 {
 public:
-    PersianDateUtil();
+    static PersianDate GerigorianToPersian(int gYear, int gMonth, int gDay);
+    static PersianDate GerigorianToPersian(QDate gDate);
+    static bool IsGerigorianYearLeap(int gYear);
+
 };
 
 #endif // PERSIANDATEUTIL_H
