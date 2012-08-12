@@ -142,3 +142,8 @@ void qPersianDatePicker::SetSelectedDate(QDate date)
     this->_selectedDate = date;
 }
 
+QDate qPersianDatePicker::SelectedDate()
+{
+    return this->_selectedDate;
+}
+

@@ -21,7 +21,7 @@ public:
     bool SetCalendarDayStyle(QString style = "");
     bool SetCalendarHolidayStyle(QString style = "");
 
-    QDate SelectedDate(){ return _selectedDate; }
+    QDate SelectedDate();
     void SetSelectedDate(QDate date);
 
 signals:
