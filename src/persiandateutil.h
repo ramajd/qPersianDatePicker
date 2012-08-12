@@ -10,12 +10,13 @@ public:
     int Month;
     int Day;
     int DayOfWeek;
+    bool IsLeap;
+    int MonthTotalDays;
 
     PersianDate() { Year = Month = Day = DayOfWeek = -1; }
     PersianDate(QDate gDate);
-    int MonthTotalDays();
-    bool IsValidDate();
 
+    bool IsValidDate();
 
 };
 

@@ -7,7 +7,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    pdpr = new qPersianDatePicker(this->ui->widget);
+    QDate d(2013, 1, 12);
+    pdpr = new qPersianDatePicker(this->ui->widget, &d);
     pdpr->show();
 
 }

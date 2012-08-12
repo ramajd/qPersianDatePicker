@@ -14,16 +14,18 @@ class qPersianDatePicker : public QWidget
 {
     Q_OBJECT
 public:
-    explicit qPersianDatePicker(QWidget *parent = 0);
+    explicit qPersianDatePicker(QWidget *parent = 0, QDate *date = 0);
 
     bool SetCalendarWeekNameList(QStringList *names = NULL);
     bool SetCalendarWeekNameStyle(QString style = "");
     bool SetCalendarDayStyle(QString style = "");
     bool SetCalendarHolidayStyle(QString style = "");
 
-signals:
+    QDate SelectedDate(){ return _selectedDate; }
+    void SetSelectedDate(QDate date);
 
-public slots:
+signals:
+    void SelectedDateChanged(QDateTime *selectedDate);
 
 private:
 
@@ -37,6 +39,7 @@ private:
     void InitWidget();
     QVector<QStringList> LoadCalendar(QDate selectedDate);
     QVector<QStringList> LoadCalendar(PersianDate selectedPersianDate);
+    QDate _selectedDate;
 };
 
 #endif // QPERSIANDATEPICKER_H

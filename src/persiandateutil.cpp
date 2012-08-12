@@ -74,6 +74,15 @@ PersianDate PersianDateUtil::GerigorianToPersian(int gYear, int gMonth, int gDay
     pDate.Day = pDay;
     pDate.DayOfWeek = (curday.dayOfWeek() + 2) % 7;
 
+    pDate.IsLeap = (pYear %4 == 3 ? true : false);
+
+    if (pDate.IsValidDate()) {
+        if(pDate.Month <= 6) pDate.MonthTotalDays = 31;
+        else if(!pDate.IsLeap && pDate.Month == 12) pDate.MonthTotalDays = 29;
+        else pDate.MonthTotalDays = 30;
+    } else
+        pDate.MonthTotalDays = -1;
+
     return pDate ;
 
 }
@@ -100,28 +109,17 @@ PersianDate::PersianDate(QDate gDate)
     this->Month = pd.Month;
     this->Day = pd.Day;
     this->DayOfWeek = pd.DayOfWeek;
-}
 
-int PersianDate::MonthTotalDays()
-{
-    if (this->IsValidDate()) {
-
-        if(this->Month <= 6)
-            return 31;
-
-        if(PersianDateUtil::IsGerigorianYearLeap(this->Year) && this->Month == 12)
-            return 29;
-
-        return 30;
-
-    } else {
-        return -1;
-
-    }
 
 
 
 }
+
+
+
+
+
+
 
 bool PersianDate::IsValidDate()
 {

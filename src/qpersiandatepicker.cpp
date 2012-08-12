@@ -1,7 +1,7 @@
 #include "qpersiandatepicker.h"
 #include <QDebug>
 
-qPersianDatePicker::qPersianDatePicker(QWidget *parent) :
+qPersianDatePicker::qPersianDatePicker(QWidget *parent, QDate *date) :
     QWidget(parent)
 {
     _calendarWeekNameList = new QStringList();
@@ -10,14 +10,14 @@ qPersianDatePicker::qPersianDatePicker(QWidget *parent) :
     SetCalendarDayStyle();
     SetCalendarHolidayStyle();
 
+    if (date != 0) this->SetSelectedDate(*date);
+    else this->SetSelectedDate(QDate::currentDate());
+
     InitWidget();
 }
 
 void qPersianDatePicker::InitWidget()
 {
-
-
-
     QGridLayout *monthLayout = new QGridLayout();
     monthLayout->setSpacing(2);
 
@@ -35,8 +35,7 @@ void qPersianDatePicker::InitWidget()
 
     //=== Loading Calendar Days.
 
-
-    QVector<QStringList> calendar = LoadCalendar(QDate::currentDate());
+    QVector<QStringList> calendar = LoadCalendar(SelectedDate());
 
     for (int i = 0; i < calendar.count(); ++i) {
         for (int j = 0; j < calendar.at(i).length(); ++j) {
@@ -111,18 +110,19 @@ QVector<QStringList> qPersianDatePicker::LoadCalendar(QDate selectedDate)
 }
 QVector<QStringList> qPersianDatePicker::LoadCalendar(PersianDate selectedPersianDate)
 {
-    int firstDayInWeek = (selectedPersianDate.DayOfWeek + selectedPersianDate.Day) % 7;
+    int firstDayInWeek =
+            (selectedPersianDate.DayOfWeek + 7 - (selectedPersianDate.Day - 1) % 7);
+    firstDayInWeek = (firstDayInWeek == 0 ? 7 : firstDayInWeek);
 
     QVector<QStringList> retVal;
 
     int cntr = 1;
 
-
     for (int i = 0; i < 7; ++i) {
         if (cntr > 30) break;
         QStringList lst;
         for (int j = 0; j < 7; ++j) {
-            if (cntr > selectedPersianDate.MonthTotalDays())
+            if (cntr > selectedPersianDate.MonthTotalDays)
                 lst.append("");
             else if (i == 0 && j < firstDayInWeek - 1) {
                 lst.append("");
@@ -133,9 +133,12 @@ QVector<QStringList> qPersianDatePicker::LoadCalendar(PersianDate selectedPersia
         retVal.append(lst);
     }
 
-
     return retVal;
-
 }
 
+
+void qPersianDatePicker::SetSelectedDate(QDate date)
+{
+    this->_selectedDate = date;
+}
 
