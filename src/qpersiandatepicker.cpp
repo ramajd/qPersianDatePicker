@@ -44,7 +44,6 @@ void qPersianDatePicker::LoadCalendarWidget(PersianDate pDate)
 
     //=== Loading Calendar Days.
 
-    //PersianDate pSelectedDay = PersianDateUtil::GerigorianToPersian(SelectedDate());
     PersianDate pToday = PersianDateUtil::GerigorianToPersian(QDate::currentDate());
 
     QVector<QStringList> calendar = LoadCalendar(pDate);
