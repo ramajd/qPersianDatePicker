@@ -29,6 +29,10 @@ public:
     QDate SelectedDate();
     void SetSelectedDate(QDate date);
 
+public slots:
+    void LoadCalendarWidget(PersianDate pDate);
+    void LoadCalendarWidget(QDate gDate);
+
 signals:
     void SelectedDateChanged(QDateTime *selectedDate);
 
@@ -42,7 +46,6 @@ private:
     QString _calendarSelectedDayStyle;
     QString _calendarTodayStyle;
 
-    void InitWidget();
     QVector<QStringList> LoadCalendar(QDate selectedDate);
     QVector<QStringList> LoadCalendar(PersianDate selectedPersianDate);
     QDate _selectedDate;

@@ -14,10 +14,16 @@ qPersianDatePicker::qPersianDatePicker(QWidget *parent, QDate *date) :
     if (date != 0) this->SetSelectedDate(*date);
     else this->SetSelectedDate(QDate::currentDate());
 
-    InitWidget();
+    LoadCalendarWidget(SelectedDate());
 }
 
-void qPersianDatePicker::InitWidget()
+void qPersianDatePicker::LoadCalendarWidget(QDate gDate)
+{
+    PersianDate pdate = PersianDateUtil::GerigorianToPersian(gDate);
+    LoadCalendarWidget(pdate);
+}
+
+void qPersianDatePicker::LoadCalendarWidget(PersianDate pDate)
 {
     QVBoxLayout *widgetLayout = new QVBoxLayout();
 
@@ -38,17 +44,17 @@ void qPersianDatePicker::InitWidget()
 
     //=== Loading Calendar Days.
 
-    PersianDate pSelectedDay = PersianDateUtil::GerigorianToPersian(SelectedDate());
+    //PersianDate pSelectedDay = PersianDateUtil::GerigorianToPersian(SelectedDate());
     PersianDate pToday = PersianDateUtil::GerigorianToPersian(QDate::currentDate());
 
-    QVector<QStringList> calendar = LoadCalendar(pSelectedDay);
+    QVector<QStringList> calendar = LoadCalendar(pDate);
 
     for (int i = 0; i < calendar.count(); ++i) {
         for (int j = 0; j < calendar.at(i).length(); ++j) {
 
             lbl = new QLabel(calendar.at(i).at(j));
             lbl->setAlignment(Qt::AlignCenter);
-            if ( pSelectedDay.Month == pToday.Month && calendar[i][j] == QString::number(pSelectedDay.Day))
+            if ( pDate.Month == pToday.Month && calendar[i][j] == QString::number(pDate.Day))
                 lbl->setStyleSheet(_calendarTodayStyle);
             else
                 lbl->setStyleSheet(_calendarDayStyle);
@@ -60,7 +66,7 @@ void qPersianDatePicker::InitWidget()
 
     QLabel *lblTitle = new QLabel();
     lblTitle->setAlignment(Qt::AlignCenter);
-    lblTitle->setText(this->_calendarMonthNameList[pSelectedDay.Month - 1]);
+    lblTitle->setText(this->_calendarMonthNameList[pDate.Month - 1]);
 
 
     widgetLayout->addWidget(lblTitle);
@@ -84,12 +90,12 @@ void qPersianDatePicker::SetCalendarWeekNameList(QStringList names)
 }
 void qPersianDatePicker::SetCalendarMonthNameList(QStringList monthNames)
 {
-    if (monthNames.count() == 0)
+    if (monthNames.count() == 0) {
         this->_calendarMonthNameList << QString::fromUtf8("فروردین") << QString::fromUtf8("اردیبهشت")  << QString::fromUtf8("خرداد")
                                      << QString::fromUtf8("تیر") << QString::fromUtf8("مرداد") << QString::fromUtf8("شهریور")
                                      << QString::fromUtf8("مهر") << QString::fromUtf8("آبان") << QString::fromUtf8("آذر")
                                      << QString::fromUtf8("دی") << QString::fromUtf8("بهمن") << QString::fromUtf8("اسفند");
-    else {
+    } else {
         _calendarMonthNameList.clear();
         _calendarWeekNameList = monthNames;
     }
@@ -169,7 +175,6 @@ void qPersianDatePicker::SetSelectedDate(QDate date)
 {
     this->_selectedDate = date;
 }
-
 QDate qPersianDatePicker::SelectedDate()
 {
     return this->_selectedDate;
