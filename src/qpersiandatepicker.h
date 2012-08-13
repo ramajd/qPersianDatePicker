@@ -3,10 +3,12 @@
 
 #include <QWidget>
 #include <QGridLayout>
+#include <QVBoxLayout>
 #include <QLabel>
 #include <QPushButton>
 #include <QDate>
 #include <QVector>
+#include <QDebug>
 #include "persiandateutil.h"
 
 
@@ -16,10 +18,13 @@ class qPersianDatePicker : public QWidget
 public:
     explicit qPersianDatePicker(QWidget *parent = 0, QDate *date = 0);
 
-    bool SetCalendarWeekNameList(QStringList *names = NULL);
-    bool SetCalendarWeekNameStyle(QString style = "");
-    bool SetCalendarDayStyle(QString style = "");
-    bool SetCalendarHolidayStyle(QString style = "");
+    void SetCalendarWeekNameList(QStringList names);
+    void SetCalendarMonthNameList(QStringList monthNames);
+
+    void SetCalendarWeekNameStyle(QString style = "");
+    void SetCalendarDayStyle(QString style = "");
+    void SetCalendarHolidayStyle(QString style = "");
+    void SetCalendarTodayStyle(QString style = "");
 
     QDate SelectedDate();
     void SetSelectedDate(QDate date);
@@ -29,12 +34,13 @@ signals:
 
 private:
 
-    QStringList *_calendarWeekNameList;
+    QStringList _calendarWeekNameList;
+    QStringList _calendarMonthNameList;
     QString _calendarWeekNameStyle;
     QString _calendarDayStyle;
     QString _calendarHolidayStyle;
     QString _calendarSelectedDayStyle;
-    QString _calendarTodyStyle;
+    QString _calendarTodayStyle;
 
     void InitWidget();
     QVector<QStringList> LoadCalendar(QDate selectedDate);
