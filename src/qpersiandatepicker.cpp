@@ -124,7 +124,7 @@ void qPersianDatePicker::SetCalendarHolidayStyle(QString style)
 }
 void qPersianDatePicker::SetCalendarTodayStyle(QString style)
 {
-    _calendarTodayStyle = "border: 1px solid #000000; border-radius: 9px; font: 9pt 'B Homa'; color: #000000; background-color: #FCF58B;";
+    _calendarTodayStyle = "border: 1px solid #000000; border-radius: 9px; font: 9pt 'B Homa'; color: #000000; background-color: #FEFF80;";
     if ( style.trimmed() != "" )
         _calendarTodayStyle = style;
 }
