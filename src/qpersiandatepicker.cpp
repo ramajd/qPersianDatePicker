@@ -111,7 +111,7 @@ QVector<QStringList> qPersianDatePicker::LoadCalendar(QDate selectedDate)
 QVector<QStringList> qPersianDatePicker::LoadCalendar(PersianDate selectedPersianDate)
 {
     int firstDayInWeek =
-            (selectedPersianDate.DayOfWeek + 7 - (selectedPersianDate.Day - 1) % 7);
+            (selectedPersianDate.DayOfWeek + 7 - (selectedPersianDate.Day - 1) % 7) % 7;
     firstDayInWeek = (firstDayInWeek == 0 ? 7 : firstDayInWeek);
 
     QVector<QStringList> retVal;
@@ -129,8 +129,10 @@ QVector<QStringList> qPersianDatePicker::LoadCalendar(PersianDate selectedPersia
             } else {
                 lst.append(QString::number(cntr++));
             }
-        }
+        }                    
         retVal.append(lst);
+        if (cntr > selectedPersianDate.MonthTotalDays)
+            break;
     }
 
     return retVal;
