@@ -2,6 +2,5 @@
 
 Persian DatePicker widget for Qt. 
 
-By: Reza Alizadeh Majd
-Email: r.a.majd@gmail.com
+By: [Reza Alizadeh Majd](mailto: r.a.majd@gmail.com)
 
