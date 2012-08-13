@@ -1,5 +1,4 @@
-qPersianDatePicker
-==================
+##qPersianDatePicker
 
 Persian DatePicker widget for Qt. 
 
