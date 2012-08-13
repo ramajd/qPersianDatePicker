@@ -61,11 +61,11 @@ void qPersianDatePicker::InitWidget()
     QLabel *lblTitle = new QLabel();
     lblTitle->setAlignment(Qt::AlignCenter);
     lblTitle->setText(this->_calendarMonthNameList[pSelectedDay.Month - 1]);
-    widgetLayout->addWidget(lblTitle);
 
+
+    widgetLayout->addWidget(lblTitle);
     widgetLayout->addLayout(monthLayout);
     this->setLayout(widgetLayout);
-    //    this->setLayout(monthLayout);
 }
 
 void qPersianDatePicker::SetCalendarWeekNameList(QStringList names)
