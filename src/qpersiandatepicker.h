@@ -25,6 +25,7 @@ public:
     void SetCalendarDayStyle(QString style = "");
     void SetCalendarHolidayStyle(QString style = "");
     void SetCalendarTodayStyle(QString style = "");
+    void SetCalendarMonthNameStyle(QString style = "");
 
     QDate SelectedDate();
     void SetSelectedDate(QDate date);
@@ -40,11 +41,13 @@ private:
 
     QStringList _calendarWeekNameList;
     QStringList _calendarMonthNameList;
+
     QString _calendarWeekNameStyle;
     QString _calendarDayStyle;
     QString _calendarHolidayStyle;
     QString _calendarSelectedDayStyle;
     QString _calendarTodayStyle;
+    QString _calendarMonthNameStyle;
 
     QVector<QStringList> LoadCalendar(QDate selectedDate);
     QVector<QStringList> LoadCalendar(PersianDate selectedPersianDate);

@@ -10,6 +10,7 @@ qPersianDatePicker::qPersianDatePicker(QWidget *parent, QDate *date) :
     SetCalendarDayStyle();
     SetCalendarHolidayStyle();
     SetCalendarTodayStyle();
+    SetCalendarMonthNameStyle();
 
     if (date != 0) this->SetSelectedDate(*date);
     else this->SetSelectedDate(QDate::currentDate());
@@ -66,7 +67,7 @@ void qPersianDatePicker::LoadCalendarWidget(PersianDate pDate)
     QLabel *lblTitle = new QLabel();
     lblTitle->setAlignment(Qt::AlignCenter);
     lblTitle->setText(this->_calendarMonthNameList[pDate.Month - 1]);
-
+    lblTitle->setStyleSheet(_calendarMonthNameStyle);
 
     widgetLayout->addWidget(lblTitle);
     widgetLayout->addLayout(monthLayout);
@@ -118,7 +119,7 @@ void qPersianDatePicker::SetCalendarDayStyle(QString style)
     _calendarDayStyle = "border: 1px solid #000000; border-radius: 9px; font: 9pt 'B Homa';";
 
     if ( style.trimmed() != "" )
-        _calendarDayStyle = style;    
+        _calendarDayStyle = style;
 }
 void qPersianDatePicker::SetCalendarHolidayStyle(QString style)
 {
@@ -129,9 +130,16 @@ void qPersianDatePicker::SetCalendarHolidayStyle(QString style)
 }
 void qPersianDatePicker::SetCalendarTodayStyle(QString style)
 {
-    _calendarTodayStyle = "border: 1px solid #000000; border-radius: 9px; font: 9pt 'B Homa'; color: #000000; background-color: #FEFF80;";
+    _calendarTodayStyle = "border: 1px solid #000000; border-radius: 9px; font: 9pt 'B Homa';"
+            "color: #000000; background-color: #FEFF80;";
     if ( style.trimmed() != "" )
         _calendarTodayStyle = style;
+}
+void qPersianDatePicker::SetCalendarMonthNameStyle(QString style)
+{
+    _calendarMonthNameStyle = "font: 10pt 'B Homa'; font-weight: Bold;";
+    if (style != "")
+        _calendarMonthNameStyle = style;
 }
 
 QVector<QStringList> qPersianDatePicker::LoadCalendar(QDate selectedDate)
@@ -160,7 +168,7 @@ QVector<QStringList> qPersianDatePicker::LoadCalendar(PersianDate selectedPersia
             } else {
                 lst.append(QString::number(cntr++));
             }
-        }                    
+        }
         retVal.append(lst);
         if (cntr > selectedPersianDate.MonthTotalDays)
             break;
